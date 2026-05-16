@@ -1,0 +1,10 @@
+rubka==8.1.3
+aiohttp
+deep-translator
+markdownify
+mutagen
+pycryptodome
+Pillow
+httpx
+tqdm
+aiofiles
