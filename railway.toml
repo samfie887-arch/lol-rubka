@@ -1,2 +1,2 @@
-[build]
-start = "python eennd.py"
+[deploy]
+startCommand = "python eennd.py"
