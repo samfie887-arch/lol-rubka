@@ -1260,8 +1260,7 @@ async def handle_all_messages(robot: Robot, message: Message):
                 await message.reply("❌ عنوان باید حداقل ۳ کاراکتر باشد!")
                 return
             admin_states["new_video_title"] = text.strip()
-            admin_states["new_video_description"] = "..."   # پیش‌فرض
-            # پیش‌فرض
+            admin_states["new_video_description"] = "..."
             admin_states["new_video_price"] = "با خرید اشتراک تمام ویدیو ها موجود را دریافت میکنید"
             admin_states[chat_id] = "adding_video_duration_new"
             await message.reply(f"✨ عنوان: {text.strip()}\n\n⏱ مدت زمان ویدیو را وارد کنید (مثال: ۴۵ دقیقه):")
@@ -1269,16 +1268,14 @@ async def handle_all_messages(robot: Robot, message: Message):
 
         if state == "adding_video_duration_new":
             admin_states["new_video_duration"] = text.strip()
-            # ذخیره‌ی مستقیم بدون پرسیدن قیمت
-            nid = f"v{len(videos)+1}"
-            videos[nid] = {
+            nid = f"v{len(db['videos'])+1}"
+            db['videos'][nid] = {
                 "id": nid,
                 "title": admin_states.get("new_video_title", ""),
                 "description": admin_states.get("new_video_description", "..."),
                 "duration": admin_states.get("new_video_duration", ""),
                 "price": admin_states.get("new_video_price", "با خرید اشتراک تمام ویدیو ها موجود را دریافت میکنید")
             }
-            db["videos"] = videos
             save_data(db)
             admin_states.pop(chat_id, None)
             await message.reply("🎉 ویدیو جدید با موفقیت اضافه شد!", chat_keypad=kilid_admin_video_management(), chat_keypad_type="New")
